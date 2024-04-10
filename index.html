@@ -9,12 +9,23 @@
 
 <body>
   <h1>Hello from pop-up</h1>
-  <button onclick="makeFakePayment()">Make payment (fake)</button>
-
+  <button onclick="instantClose()">Instant close</button>
+  <button onclick="delayedCloseAsync()">Delayed close(async)</button>
 </body>
 
 <script>
-  function makeFakePayment() {
+  function instantClose() {
+    const daddy = window.self;
+    daddy.opener = window.self;
+    daddy.close();
+  }
+
+  const wait = (time) => new Promise((resolve) => {
+    setTimeout(resolve, time);
+  })
+  async function delayedCloseAsync() {
+    await wait(1000)
+
     const daddy = window.self;
     daddy.opener = window.self;
     daddy.close();
